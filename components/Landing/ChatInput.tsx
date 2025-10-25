@@ -35,9 +35,9 @@ export default function ChatInput({
   };
 
   const examples = [
-    "I need parking at Tech Square",
-    "Find me a spot near ATDC", 
-    "GT campus, avoiding game traffic"
+    "I need parking near downtown",
+    "Find me a spot close to the university", 
+    "Parking for the event tonight"
   ];
 
   return (

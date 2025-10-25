@@ -1,28 +1,9 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import StatusMessages from './StatusMessages';
 
 export default function AIThinking() {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
-  
-  const statusMessages = [
-    "Checking current events...",
-    "Scanning available parking...",
-    "Analyzing traffic patterns...",
-    "Calculating distances...",
-    "Optimizing for your preferences...",
-    "Cross-referencing real-time data...",
-    "Finding the best options..."
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentMessageIndex((prev) => (prev + 1) % statusMessages.length);
-    }, 1000); // Change message every 1 seconds
-
-    return () => clearInterval(interval);
-  }, [statusMessages.length]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white w-full h-full to-blue-100">
@@ -90,25 +71,115 @@ export default function AIThinking() {
               />
             ))}
           </div>
+
+          {/* Route-finding animation - scanning lines */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(3)].map((_, i) => (
+              <motion.div
+                key={`scan-${i}`}
+                className="absolute w-full h-0.5 bg-white/60"
+                style={{
+                  top: '50%',
+                  left: 0
+                }}
+                animate={{
+                  x: ['-100%', '100%'],
+                  opacity: [0, 1, 0]
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: i * 0.5,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Route-finding animation - connection dots */}
+          <div className="absolute inset-0">
+            {[...Array(4)].map((_, i) => (
+              <motion.div
+                key={`connection-${i}`}
+                className="absolute w-1.5 h-1.5 bg-white rounded-full"
+                style={{
+                  left: `${20 + (i * 20)}%`,
+                  top: `${30 + (i % 2) * 40}%`
+                }}
+                animate={{
+                  scale: [0.5, 1.2, 0.5],
+                  opacity: [0.3, 1, 0.3]
+                }}
+                transition={{
+                  duration: 1.2,
+                  repeat: Infinity,
+                  delay: i * 0.3,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
         </motion.div>
       </motion.div>
 
+      {/* Route analysis visualization */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Scanning radar effect */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-16 h-16 border border-[#87BED7]/30 rounded-full"
+          animate={{
+            scale: [1, 1.5, 1],
+            opacity: [0.3, 0.8, 0.3]
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+        
+        {/* Route path simulation */}
+        <motion.div
+          className="absolute top-1/3 right-1/4 w-20 h-0.5 bg-gradient-to-r from-[#87BED7] to-transparent"
+          animate={{
+            scaleX: [0, 1, 0],
+            opacity: [0, 1, 0]
+          }}
+          transition={{
+            duration: 1.8,
+            repeat: Infinity,
+            delay: 0.5,
+            ease: "easeInOut"
+          }}
+        />
+        
+        {/* Data flow indicators */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={`data-flow-${i}`}
+            className="absolute w-2 h-2 bg-[#C93135] rounded-full"
+            style={{
+              top: `${40 + i * 15}%`,
+              right: `${20 + i * 10}%`
+            }}
+            animate={{
+              x: [-20, 20, -20],
+              y: [0, -10, 0],
+              opacity: [0, 1, 0]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.7,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
       {/* Status messages */}
-      <div className="text-center space-y-4">
-        <div className="h-8 flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentMessageIndex}
-              className="text-gray-700 text-lg font-medium"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              {statusMessages[currentMessageIndex]}
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      <div className="mt-8">
+        <StatusMessages />
       </div>
     </div>
   );
