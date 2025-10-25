@@ -18,7 +18,7 @@ const parkingOptions = [
   {
     id: 1,
     name: "Technology Square Deck",
-    address: "760 Spring St NW",
+    address: "760 Spring St NW, Atlanta, GA 30308",
     walkTime: "4 min",
     cost: "$8",
     availableSpots: 47,
@@ -41,7 +41,7 @@ const parkingOptions = [
   {
     id: 2,
     name: "Centergy Parking",
-    address: "75 5th St NW",
+    address: "75 5th St NW, Atlanta, GA 30308",
     walkTime: "6 min",
     cost: "$10",
     availableSpots: 28,
@@ -63,7 +63,7 @@ const parkingOptions = [
   {
     id: 3,
     name: "MARTA Midtown",
-    address: "10th St & Peachtree St",
+    address: "10th St & Peachtree St, Atlanta, GA 30309",
     walkTime: "16 min",
     cost: "$2",
     availableSpots: 156,
@@ -85,7 +85,7 @@ const parkingOptions = [
   {
     id: 4,
     name: "North Avenue Deck",
-    address: "North Ave & Techwood Dr",
+    address: "North Ave & Techwood Dr, Atlanta, GA 30332",
     walkTime: "10 min",
     cost: "$5",
     availableSpots: 3,
@@ -107,7 +107,7 @@ const parkingOptions = [
   {
     id: 5,
     name: "Bobby Dodd Stadium",
-    address: "150 Bobby Dodd Way",
+    address: "150 Bobby Dodd Way, Atlanta, GA 30332",
     walkTime: "8 min",
     cost: "$25",
     availableSpots: 0,
@@ -312,7 +312,11 @@ export default function Home() {
           <NavigationModal
             isOpen={true}
             onClose={handleCloseNavigation}
-            parkingData={selectedParking.navigation}
+            parkingData={{
+              ...selectedParking.navigation,
+              name: selectedParking.name,
+              address: selectedParking.address
+            }}
           />
         )}
 

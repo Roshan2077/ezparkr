@@ -32,18 +32,6 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
     }
   };
 
-  const nextDirection = () => {
-    if (currentStep < parkingData.directions.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const prevDirection = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
   const openInGoogleMaps = () => {
     const address = encodeURIComponent(parkingData.address);
     const url = `https://www.google.com/maps/search/?api=1&query=${address}`;
@@ -302,40 +290,17 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                   </motion.div>
                 ))}
               </div>
-
-              {/* Navigation controls */}
-              <div className="flex space-x-3 mt-6">
-                <button
-                  onClick={prevDirection}
-                  disabled={currentStep === 0}
-                  className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#87BED7]/20 transition-colors"
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={nextDirection}
-                  disabled={currentStep === parkingData.directions.length - 1}
-                  className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#87BED7]/20 transition-colors"
-                >
-                  Next
-                </button>
-              </div>
             </div>
 
             {/* Action buttons */}
             <div className="p-6 border-t border-[#87BED7]/20">
               <div className="flex space-x-3">
-                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
+                <button className="w-3/4 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Navigation size={16} />
                   <span>Start Navigation</span>
                 </button>
-                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
-                  <Phone size={16} />
-                  <span>Call Facility</span>
-                </button>
-                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
+                <button className="w-1/4 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Share2 size={16} />
-                  <span>Share</span>
                 </button>
               </div>
             </div>
