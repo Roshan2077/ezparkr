@@ -8,8 +8,9 @@ import AIThinking from '../components/Processing/AIThinking';
 import StatusMessages from '../components/Processing/StatusMessages';
 import ParkingCard from '../components/Results/ParkingCard';
 import NavigationModal from '../components/HUD/NavigationModal';
+import PreferencesModal, { ParkingPreferences } from '../components/Preferences/PreferencesModal';
 
-type AppState = 'landing' | 'processing' | 'results' | 'navigation';
+type AppState = 'landing' | 'processing' | 'results' | 'navigation' | 'preferences';
 
 // Mock data for parking options
 const parkingOptions = [
@@ -131,6 +132,28 @@ export default function Home() {
   const [userMessage, setUserMessage] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [selectedParking, setSelectedParking] = useState<any>(null);
+  const [preferences, setPreferences] = useState<ParkingPreferences>({
+    maxCost: 15,
+    preferFree: false,
+    costTolerance: 'medium',
+    maxWalkingDistance: 10,
+    preferCloser: true,
+    preferCovered: false,
+    requireCovered: false,
+    minAvailability: 5,
+    avoidFull: true,
+    maxWaitTime: 5,
+    preferQuickExit: false,
+    preferWellLit: false,
+    preferSecurity: false,
+    requireAccessible: false,
+    requireEVCharging: false,
+    avoidEventTraffic: true,
+    preferEventParking: false,
+    prioritizeScore: true,
+    avoidConstruction: true,
+    preferReserved: false,
+  });
 
   const handleSendMessage = (message: string) => {
     setUserMessage(message);
@@ -170,6 +193,18 @@ export default function Home() {
     setUserMessage('');
   };
 
+  const handleOpenPreferences = () => {
+    setAppState('preferences');
+  };
+
+  const handleClosePreferences = () => {
+    setAppState('landing');
+  };
+
+  const handleSavePreferences = (newPreferences: ParkingPreferences) => {
+    setPreferences(newPreferences);
+  };
+
   return (
     <div className="min-h-screen overflow-hidden">
       <BlurredMapBackground />
@@ -190,12 +225,27 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="text-center mb-12"
             >
-              <h1 className="text-4xl font-bold text-gray-800 mb-2 tracking-tight">
-                EZParkr
-              </h1>
-              <p className="text-gray-600 text-lg">
-                AI-powered parking assistant
-              </p>
+              <div className="flex items-center justify-between mb-8">
+                <div className="w-8" /> {/* Spacer */}
+                <div className="text-center">
+                  <h1 className="text-4xl font-bold text-gray-800 mb-2 tracking-tight">
+                    EZParkr
+                  </h1>
+                  <p className="text-gray-600 text-lg">
+                    AI-powered parking assistant
+                  </p>
+                </div>
+                <button
+                  onClick={handleOpenPreferences}
+                  className="p-3 bg-white/80 backdrop-blur-md rounded-full border border-[#87BED7]/30 text-[#87BED7] hover:bg-[#87BED7]/20 transition-all duration-200 shadow-lg"
+                  title="Preferences"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              </div>
             </motion.div>
 
             {/* Chat Input */}
@@ -265,6 +315,15 @@ export default function Home() {
             isOpen={true}
             onClose={handleCloseNavigation}
             parkingData={selectedParking.navigation}
+          />
+        )}
+
+        {appState === 'preferences' && (
+          <PreferencesModal
+            isOpen={true}
+            onClose={handleClosePreferences}
+            preferences={preferences}
+            onSave={handleSavePreferences}
           />
         )}
       </AnimatePresence>

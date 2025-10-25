@@ -7,12 +7,11 @@ export default function AIThinking() {
   const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   
   const statusMessages = [
-    "Understanding your request...",
     "Checking current events...",
+    "Scanning available parking...",
     "Analyzing traffic patterns...",
     "Calculating distances...",
     "Optimizing for your preferences...",
-    "Scanning available parking...",
     "Cross-referencing real-time data...",
     "Finding the best options..."
   ];
@@ -20,13 +19,13 @@ export default function AIThinking() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessageIndex((prev) => (prev + 1) % statusMessages.length);
-    }, 2000); // Change message every 2 seconds
+    }, 1000); // Change message every 1 seconds
 
     return () => clearInterval(interval);
   }, [statusMessages.length]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white w-full h-full to-blue-100">
       {/* Animated AI orb */}
       <motion.div
         className="relative mb-8"
