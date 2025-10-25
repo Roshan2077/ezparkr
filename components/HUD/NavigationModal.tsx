@@ -65,21 +65,31 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-white to-blue-50 rounded-t-3xl max-h-[90vh] overflow-hidden"
+            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-white to-blue-50 rounded-t-3xl max-h-[95vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-[#87BED7]/20">
-              <div>
-                <h2 className="text-gray-800 text-xl font-semibold">{parkingData.name}</h2>
-                <p className="text-gray-600 text-sm">{parkingData.address}</p>
-              </div>
               <button
                 onClick={onClose}
                 className="w-8 h-8 rounded-full bg-[#87BED7]/10 flex items-center justify-center text-[#87BED7] hover:bg-[#87BED7]/20 transition-colors"
               >
                 <X size={16} />
               </button>
+              
+              <div className="flex-1 text-center">
+                <h2 className="text-gray-800 text-xl font-semibold">{parkingData.name}</h2>
+                <p className="text-gray-600 text-sm">{parkingData.address}</p>
+              </div>
+              
+              <motion.button
+                whileTap={{ scale: 0.95 }}
+                onClick={openInGoogleMaps}
+                className="bg-[#87BED7] text-white px-4 py-2 rounded-lg font-semibold flex items-center space-x-2 hover:bg-[#87BED7]/80 transition-colors"
+              >
+                <ExternalLink size={16} />
+                <span>Open in Maps</span>
+              </motion.button>
             </div>
 
             {/* HUD Map Area */}
@@ -315,17 +325,6 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             {/* Action buttons */}
             <div className="p-6 border-t border-[#87BED7]/20">
               <div className="flex space-x-3">
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={openInGoogleMaps}
-                  className="flex-1 bg-[#87BED7] text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-[#87BED7]/80 transition-colors"
-                >
-                  <ExternalLink size={20} />
-                  <span>Open in Google Maps</span>
-                </motion.button>
-              </div>
-              
-              <div className="flex space-x-3 mt-3">
                 <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Navigation size={16} />
                   <span>Start Navigation</span>

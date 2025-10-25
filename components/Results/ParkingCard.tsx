@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star, MapPin, Clock, DollarSign, Car, AlertTriangle } from 'lucide-react';
+import { Star, MapPin, Clock, DollarSign, Car, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 interface ParkingCardProps {
   id: number;
@@ -108,9 +108,10 @@ export default function ParkingCard({
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.08 + 0.6 + insightIndex * 0.1 }}
-            className="px-3 py-1 bg-green-500/20 text-green-700 text-xs rounded-full border border-green-500/30"
+            className="px-3 py-1 bg-green-500/20 text-green-700 text-xs rounded-full border border-green-500/30 flex items-center space-x-1"
           >
-            ✅ {insight}
+            <CheckCircle2 size={14} className="text-green-600 mr-1" />
+            {insight}
           </motion.span>
         ))}
         
