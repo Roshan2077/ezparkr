@@ -1,8 +1,30 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function AIThinking() {
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+  
+  const statusMessages = [
+    "Understanding your request...",
+    "Checking current events...",
+    "Analyzing traffic patterns...",
+    "Calculating distances...",
+    "Optimizing for your preferences...",
+    "Scanning available parking...",
+    "Cross-referencing real-time data...",
+    "Finding the best options..."
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % statusMessages.length);
+    }, 2000); // Change message every 2 seconds
+
+    return () => clearInterval(interval);
+  }, [statusMessages.length]);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
       {/* Animated AI orb */}
@@ -74,14 +96,20 @@ export default function AIThinking() {
 
       {/* Status messages */}
       <div className="text-center space-y-4">
-        <motion.div
-          className="text-gray-700 text-lg font-medium"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          Understanding your request...
-        </motion.div>
+        <div className="h-8 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentMessageIndex}
+              className="text-gray-700 text-lg font-medium"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              {statusMessages[currentMessageIndex]}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
