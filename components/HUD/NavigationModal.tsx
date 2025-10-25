@@ -57,18 +57,13 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-[#87BED7]/20">
+            <div className="flex items-center justify-between p-4 border-b border-[#87BED7]/20">
               <button
                 onClick={onClose}
                 className="w-8 h-8 rounded-full bg-[#87BED7]/10 flex items-center justify-center text-[#87BED7] hover:bg-[#87BED7]/20 transition-colors"
               >
                 <X size={16} />
               </button>
-              
-              <div className="flex-1 text-center">
-                <h2 className="text-gray-800 text-xl font-semibold">{parkingData.name}</h2>
-                <p className="text-gray-600 text-sm">{parkingData.address}</p>
-              </div>
               
               <motion.button
                 whileTap={{ scale: 0.95 }}
@@ -217,6 +212,19 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 >
                   <div className="text-green-400 text-sm font-mono font-bold">{parkingData.eta}</div>
                   <div className="text-xs text-white/70">ETA</div>
+                </motion.div>
+              </div>
+
+              {/* Parking Info in HUD */}
+              <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-black/70 backdrop-blur-md rounded-lg px-4 py-3 text-white border border-[#87BED7]/30 text-center"
+                >
+                  <div className="text-[#87BED7] text-sm font-semibold">{parkingData.name}</div>
+                  <div className="text-xs text-white/70 mt-1">{parkingData.address}</div>
                 </motion.div>
               </div>
 
