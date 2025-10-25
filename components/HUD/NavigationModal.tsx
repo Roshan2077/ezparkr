@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Navigation, Phone, Share2, MapPin } from 'lucide-react';
+import { X, Navigation, Phone, Share2, MapPin, ArrowUp, ArrowRight, ArrowLeft, MapPin as DestinationPin, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 
 interface NavigationModalProps {
@@ -25,10 +25,10 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
 
   const getDirectionIcon = (type: string) => {
     switch (type) {
-      case 'left': return '⬅️';
-      case 'right': return '➡️';
-      case 'destination': return '🅿️';
-      default: return '⬆️';
+      case 'left': return <ArrowLeft size={24} className="text-[#87BED7]" />;
+      case 'right': return <ArrowRight size={24} className="text-[#87BED7]" />;
+      case 'destination': return <DestinationPin size={24} className="text-[#C93135]" />;
+      default: return <ArrowUp size={24} className="text-[#87BED7]" />;
     }
   };
 
@@ -42,6 +42,12 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
+  };
+
+  const openInGoogleMaps = () => {
+    const address = encodeURIComponent(parkingData.address);
+    const url = `https://www.google.com/maps/search/?api=1&query=${address}`;
+    window.open(url, '_blank');
   };
 
   return (
@@ -77,41 +83,120 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             </div>
 
             {/* HUD Map Area */}
-            <div className="relative h-64 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
-              {/* Simulated map with route */}
+            <div className="relative h-80 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 overflow-hidden">
+              {/* HUD Grid Pattern */}
+              <div className="absolute inset-0 opacity-20">
+                <svg className="w-full h-full" viewBox="0 0 100 100">
+                  <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#87BED7" strokeWidth="0.5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100" height="100" fill="url(#grid)" />
+                </svg>
+              </div>
+
+              {/* HUD Scan Lines */}
+              <motion.div
+                className="absolute inset-0 opacity-30"
+                style={{
+                  background: "repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(135,190,215,0.3) 2px, rgba(135,190,215,0.3) 4px)"
+                }}
+                animate={{
+                  x: [0, 4, 0]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+
+              {/* Enhanced Map with Roads */}
               <div className="absolute inset-0">
-                <svg className="w-full h-full" viewBox="0 0 400 200">
-                  {/* Route line */}
+                <svg className="w-full h-full" viewBox="0 0 400 300">
+                  {/* Major Roads */}
+                  <path
+                    d="M50 150 L350 150 M200 50 L200 250 M100 100 L300 100 M100 200 L300 200"
+                    stroke="#87BED7"
+                    strokeWidth="3"
+                    fill="none"
+                    opacity="0.6"
+                  />
+                  
+                  {/* Side Roads */}
+                  <path
+                    d="M150 100 L150 200 M250 100 L250 200 M80 150 L120 150 M280 150 L320 150"
+                    stroke="#87BED7"
+                    strokeWidth="2"
+                    fill="none"
+                    opacity="0.4"
+                  />
+                  
+                  {/* Buildings */}
+                  <rect x="180" y="120" width="40" height="30" fill="#87BED7" opacity="0.3" />
+                  <rect x="120" y="140" width="30" height="20" fill="#87BED7" opacity="0.3" />
+                  <rect x="250" y="130" width="35" height="25" fill="#87BED7" opacity="0.3" />
+                  <rect x="80" y="160" width="25" height="20" fill="#87BED7" opacity="0.3" />
+                  <rect x="300" y="155" width="30" height="25" fill="#87BED7" opacity="0.3" />
+                  
+                  {/* Animated Route Line */}
                   <motion.path
-                    d="M50 100 Q200 50 350 100"
+                    d="M50 150 Q200 100 350 150"
                     stroke="#87BED7"
                     strokeWidth="4"
                     fill="none"
-                    strokeDasharray="10,5"
+                    strokeDasharray="15,10"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 2, ease: "easeInOut" }}
+                    transition={{ duration: 3, ease: "easeInOut" }}
                   />
                   
-                  {/* Current location */}
+                  {/* Route Dots */}
                   <motion.circle
-                    cx="50"
-                    cy="100"
-                    r="8"
+                    cx="100"
+                    cy="150"
+                    r="3"
                     fill="#87BED7"
-                    animate={{ scale: [1, 1.2, 1] }}
+                    animate={{ opacity: [0.5, 1, 0.5] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   />
-                  
-                  {/* Destination */}
                   <motion.circle
-                    cx="350"
+                    cx="200"
                     cy="100"
-                    r="8"
-                    fill="#C93135"
+                    r="3"
+                    fill="#87BED7"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: 0.5 }}
+                  />
+                  <motion.circle
+                    cx="300"
+                    cy="150"
+                    r="3"
+                    fill="#87BED7"
+                    animate={{ opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: 1 }}
+                  />
+                  
+                  {/* Current Location with Pulse */}
+                  <motion.g
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <circle cx="50" cy="150" r="12" fill="#87BED7" opacity="0.3" />
+                    <circle cx="50" cy="150" r="8" fill="#87BED7" />
+                    <circle cx="50" cy="150" r="4" fill="white" />
+                  </motion.g>
+                  
+                  {/* Destination with Pulse */}
+                  <motion.g
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
-                  />
+                  >
+                    <circle cx="350" cy="150" r="12" fill="#C93135" opacity="0.3" />
+                    <circle cx="350" cy="150" r="8" fill="#C93135" />
+                    <DestinationPin size={16} x="342" y="142" className="text-white" />
+                  </motion.g>
                 </svg>
               </div>
 
@@ -120,20 +205,35 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-white/80 backdrop-blur-md rounded-lg px-3 py-2 text-gray-800"
+                  className="bg-black/70 backdrop-blur-md rounded-lg px-3 py-2 text-white border border-[#87BED7]/30"
                 >
-                  <div className="text-[#87BED7] text-sm font-mono">{parkingData.distance}</div>
-                  <div className="text-xs text-gray-600">away</div>
+                  <div className="text-[#87BED7] text-sm font-mono font-bold">{parkingData.distance}</div>
+                  <div className="text-xs text-white/70">DISTANCE</div>
                 </motion.div>
                 
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-white/80 backdrop-blur-md rounded-lg px-3 py-2 text-gray-800"
+                  className="bg-black/70 backdrop-blur-md rounded-lg px-3 py-2 text-white border border-green-500/30"
                 >
-                  <div className="text-green-600 text-sm font-mono">{parkingData.eta}</div>
-                  <div className="text-xs text-gray-600">arrival</div>
+                  <div className="text-green-400 text-sm font-mono font-bold">{parkingData.eta}</div>
+                  <div className="text-xs text-white/70">ETA</div>
+                </motion.div>
+              </div>
+
+              {/* Speed and Direction Indicator */}
+              <div className="absolute bottom-4 right-4">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-black/70 backdrop-blur-md rounded-full p-3 text-white border border-[#87BED7]/30"
+                >
+                  <div className="text-center">
+                    <div className="text-[#87BED7] text-xs font-mono">HEADING</div>
+                    <div className="text-white text-lg font-bold">N</div>
+                  </div>
                 </motion.div>
               </div>
 
@@ -144,11 +244,11 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 transition={{ delay: 0.5 }}
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
               >
-                <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 text-center">
-                  <div className="text-4xl mb-2">
+                <div className="bg-black/80 backdrop-blur-md rounded-2xl p-6 text-center border border-[#87BED7]/30">
+                  <div className="mb-3">
                     {getDirectionIcon(parkingData.directions[currentStep]?.type)}
                   </div>
-                  <div className="text-gray-800 font-semibold text-sm">
+                  <div className="text-white font-semibold text-sm mb-1">
                     {parkingData.directions[currentStep]?.instruction}
                   </div>
                   <div className="text-[#87BED7] text-xs font-mono">
@@ -175,7 +275,7 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                         : 'bg-gray-50'
                     }`}
                   >
-                    <div className="text-2xl">
+                    <div className="flex items-center justify-center w-8 h-8">
                       {getDirectionIcon(direction.type)}
                     </div>
                     <div className="flex-1">
@@ -217,14 +317,19 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
               <div className="flex space-x-3">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
+                  onClick={openInGoogleMaps}
                   className="flex-1 bg-[#87BED7] text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-[#87BED7]/80 transition-colors"
                 >
-                  <Navigation size={20} />
-                  <span>Start Navigation</span>
+                  <ExternalLink size={20} />
+                  <span>Open in Google Maps</span>
                 </motion.button>
               </div>
               
               <div className="flex space-x-3 mt-3">
+                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
+                  <Navigation size={16} />
+                  <span>Start Navigation</span>
+                </button>
                 <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Phone size={16} />
                   <span>Call Facility</span>
@@ -232,10 +337,6 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Share2 size={16} />
                   <span>Share</span>
-                </button>
-                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
-                  <MapPin size={16} />
-                  <span>Details</span>
                 </button>
               </div>
             </div>
