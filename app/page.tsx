@@ -190,10 +190,10 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="text-center mb-12"
             >
-              <h1 className="text-4xl font-bold text-white mb-2 tracking-tight">
+              <h1 className="text-4xl font-bold text-gray-800 mb-2 tracking-tight">
                 EZParkr
               </h1>
-              <p className="text-white/80 text-lg">
+              <p className="text-gray-600 text-lg">
                 AI-powered parking assistant
               </p>
             </motion.div>
@@ -230,17 +230,17 @@ export default function Home() {
             className="relative z-10 min-h-screen"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-black/50 backdrop-blur-md border-b border-white/10 p-6">
+            <div className="sticky top-0 bg-white/90 backdrop-blur-md border-b border-[#87BED7]/20 p-6">
               <div className="flex items-center justify-between">
                 <button
                   onClick={handleBackToLanding}
-                  className="text-white/80 hover:text-white transition-colors"
+                  className="text-[#87BED7] hover:text-[#87BED7]/80 transition-colors"
                 >
                   ← Back
                 </button>
                 <div className="text-center">
-                  <h2 className="text-white font-semibold">ATDC • Saturday 2:00 PM</h2>
-                  <p className="text-white/70 text-sm">5 parking options found</p>
+                  <h2 className="text-gray-800 font-semibold">ATDC • Saturday 2:00 PM</h2>
+                  <p className="text-gray-600 text-sm">5 parking options found</p>
                 </div>
                 <div className="w-8" /> {/* Spacer */}
               </div>

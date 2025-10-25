@@ -35,9 +35,9 @@ export default function ParkingCard({
   index
 }: ParkingCardProps) {
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'bg-emerald-500';
+    if (score >= 90) return 'bg-green-500';
     if (score >= 70) return 'bg-yellow-500';
-    return 'bg-orange-500';
+    return 'bg-[#C93135]';
   };
 
   const isSoldOut = availableSpots === 0;
@@ -49,8 +49,8 @@ export default function ParkingCard({
       transition={{ delay: index * 0.08, duration: 0.5, ease: "easeOut" }}
       whileTap={{ scale: 0.98 }}
       onClick={onSelect}
-      className={`relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-4 cursor-pointer transition-all duration-200 hover:bg-white/20 ${
-        recommended ? 'ring-2 ring-cyan-400/50' : ''
+      className={`relative bg-white/90 backdrop-blur-md rounded-2xl border border-[#87BED7]/30 p-4 cursor-pointer transition-all duration-200 hover:bg-[#87BED7]/10 ${
+        recommended ? 'ring-2 ring-[#87BED7]/50' : ''
       }`}
     >
       {/* Recommended badge */}
@@ -59,7 +59,7 @@ export default function ParkingCard({
           initial={{ scale: 0, rotate: -10 }}
           animate={{ scale: 1, rotate: 0 }}
           transition={{ delay: index * 0.08 + 0.3, type: "spring", stiffness: 200 }}
-          className="absolute -top-2 -right-2 bg-cyan-500 text-white rounded-full p-1"
+          className="absolute -top-2 -right-2 bg-[#87BED7] text-white rounded-full p-1"
         >
           <Star size={16} fill="currentColor" />
         </motion.div>
@@ -68,8 +68,8 @@ export default function ParkingCard({
       {/* Top row */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex-1">
-          <h3 className="text-white font-semibold text-lg">{name}</h3>
-          <p className="text-white/70 text-sm">{address}</p>
+          <h3 className="text-gray-800 font-semibold text-lg">{name}</h3>
+          <p className="text-gray-600 text-sm">{address}</p>
         </div>
         
         {/* Score badge */}
@@ -83,7 +83,7 @@ export default function ParkingCard({
       </div>
 
       {/* Middle row - stats */}
-      <div className="flex items-center space-x-4 mb-3 text-white/90">
+      <div className="flex items-center space-x-4 mb-3 text-gray-700">
         <div className="flex items-center space-x-1">
           <Clock size={16} />
           <span className="text-sm">{walkTime}</span>
@@ -108,7 +108,7 @@ export default function ParkingCard({
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.08 + 0.6 + insightIndex * 0.1 }}
-            className="px-3 py-1 bg-green-500/20 text-green-300 text-xs rounded-full border border-green-500/30"
+            className="px-3 py-1 bg-green-500/20 text-green-700 text-xs rounded-full border border-green-500/30"
           >
             ✅ {insight}
           </motion.span>
@@ -119,7 +119,7 @@ export default function ParkingCard({
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: index * 0.08 + 0.8 }}
-            className="px-3 py-1 bg-amber-500/20 text-amber-300 text-xs rounded-full border border-amber-500/30 flex items-center space-x-1"
+            className="px-3 py-1 bg-[#C93135]/20 text-[#C93135] text-xs rounded-full border border-[#C93135]/30 flex items-center space-x-1"
           >
             <AlertTriangle size={12} />
             <span>{warning}</span>

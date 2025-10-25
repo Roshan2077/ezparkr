@@ -59,32 +59,32 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-slate-900 to-slate-800 rounded-t-3xl max-h-[90vh] overflow-hidden"
+            className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-white to-blue-50 rounded-t-3xl max-h-[90vh] overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/10">
+            <div className="flex items-center justify-between p-6 border-b border-[#87BED7]/20">
               <div>
-                <h2 className="text-white text-xl font-semibold">{parkingData.name}</h2>
-                <p className="text-white/70 text-sm">{parkingData.address}</p>
+                <h2 className="text-gray-800 text-xl font-semibold">{parkingData.name}</h2>
+                <p className="text-gray-600 text-sm">{parkingData.address}</p>
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                className="w-8 h-8 rounded-full bg-[#87BED7]/10 flex items-center justify-center text-[#87BED7] hover:bg-[#87BED7]/20 transition-colors"
               >
                 <X size={16} />
               </button>
             </div>
 
             {/* HUD Map Area */}
-            <div className="relative h-64 bg-gradient-to-br from-blue-900 to-purple-900 overflow-hidden">
+            <div className="relative h-64 bg-gradient-to-br from-blue-100 to-blue-200 overflow-hidden">
               {/* Simulated map with route */}
               <div className="absolute inset-0">
                 <svg className="w-full h-full" viewBox="0 0 400 200">
                   {/* Route line */}
                   <motion.path
                     d="M50 100 Q200 50 350 100"
-                    stroke="#06b6d4"
+                    stroke="#87BED7"
                     strokeWidth="4"
                     fill="none"
                     strokeDasharray="10,5"
@@ -98,7 +98,7 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                     cx="50"
                     cy="100"
                     r="8"
-                    fill="#06b6d4"
+                    fill="#87BED7"
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   />
@@ -108,7 +108,7 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                     cx="350"
                     cy="100"
                     r="8"
-                    fill="#10b981"
+                    fill="#C93135"
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
                   />
@@ -120,20 +120,20 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-black/50 backdrop-blur-md rounded-lg px-3 py-2 text-white"
+                  className="bg-white/80 backdrop-blur-md rounded-lg px-3 py-2 text-gray-800"
                 >
-                  <div className="text-cyan-400 text-sm font-mono">{parkingData.distance}</div>
-                  <div className="text-xs text-white/70">away</div>
+                  <div className="text-[#87BED7] text-sm font-mono">{parkingData.distance}</div>
+                  <div className="text-xs text-gray-600">away</div>
                 </motion.div>
                 
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="bg-black/50 backdrop-blur-md rounded-lg px-3 py-2 text-white"
+                  className="bg-white/80 backdrop-blur-md rounded-lg px-3 py-2 text-gray-800"
                 >
-                  <div className="text-green-400 text-sm font-mono">{parkingData.eta}</div>
-                  <div className="text-xs text-white/70">arrival</div>
+                  <div className="text-green-600 text-sm font-mono">{parkingData.eta}</div>
+                  <div className="text-xs text-gray-600">arrival</div>
                 </motion.div>
               </div>
 
@@ -144,14 +144,14 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 transition={{ delay: 0.5 }}
                 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
               >
-                <div className="bg-black/70 backdrop-blur-md rounded-2xl p-4 text-center">
+                <div className="bg-white/90 backdrop-blur-md rounded-2xl p-4 text-center">
                   <div className="text-4xl mb-2">
                     {getDirectionIcon(parkingData.directions[currentStep]?.type)}
                   </div>
-                  <div className="text-white font-semibold text-sm">
+                  <div className="text-gray-800 font-semibold text-sm">
                     {parkingData.directions[currentStep]?.instruction}
                   </div>
-                  <div className="text-cyan-400 text-xs font-mono">
+                  <div className="text-[#87BED7] text-xs font-mono">
                     {parkingData.directions[currentStep]?.distance}
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
 
             {/* Turn-by-turn instructions */}
             <div className="p-6">
-              <h3 className="text-white font-semibold mb-4">Turn-by-Turn Directions</h3>
+              <h3 className="text-gray-800 font-semibold mb-4">Turn-by-Turn Directions</h3>
               
               <div className="space-y-3">
                 {parkingData.directions.map((direction, index) => (
@@ -171,23 +171,23 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                     transition={{ delay: index * 0.1 }}
                     className={`flex items-center space-x-3 p-3 rounded-lg ${
                       index === currentStep 
-                        ? 'bg-cyan-500/20 border border-cyan-500/50' 
-                        : 'bg-white/5'
+                        ? 'bg-[#87BED7]/20 border border-[#87BED7]/50' 
+                        : 'bg-gray-50'
                     }`}
                   >
                     <div className="text-2xl">
                       {getDirectionIcon(direction.type)}
                     </div>
                     <div className="flex-1">
-                      <div className="text-white text-sm font-medium">
+                      <div className="text-gray-800 text-sm font-medium">
                         {direction.instruction}
                       </div>
-                      <div className="text-white/60 text-xs font-mono">
+                      <div className="text-gray-600 text-xs font-mono">
                         {direction.distance}
                       </div>
                     </div>
                     {index === currentStep && (
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+                      <div className="w-2 h-2 bg-[#87BED7] rounded-full animate-pulse" />
                     )}
                   </motion.div>
                 ))}
@@ -198,14 +198,14 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
                 <button
                   onClick={prevDirection}
                   disabled={currentStep === 0}
-                  className="flex-1 py-3 bg-white/10 rounded-xl text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition-colors"
+                  className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#87BED7]/20 transition-colors"
                 >
                   Previous
                 </button>
                 <button
                   onClick={nextDirection}
                   disabled={currentStep === parkingData.directions.length - 1}
-                  className="flex-1 py-3 bg-white/10 rounded-xl text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-white/20 transition-colors"
+                  className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#87BED7]/20 transition-colors"
                 >
                   Next
                 </button>
@@ -213,11 +213,11 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
             </div>
 
             {/* Action buttons */}
-            <div className="p-6 border-t border-white/10">
+            <div className="p-6 border-t border-[#87BED7]/20">
               <div className="flex space-x-3">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
-                  className="flex-1 bg-cyan-500 text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-cyan-600 transition-colors"
+                  className="flex-1 bg-[#87BED7] text-white py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 hover:bg-[#87BED7]/80 transition-colors"
                 >
                   <Navigation size={20} />
                   <span>Start Navigation</span>
@@ -225,15 +225,15 @@ export default function NavigationModal({ isOpen, onClose, parkingData }: Naviga
               </div>
               
               <div className="flex space-x-3 mt-3">
-                <button className="flex-1 py-3 bg-white/10 rounded-xl text-white font-medium flex items-center justify-center space-x-2 hover:bg-white/20 transition-colors">
+                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Phone size={16} />
                   <span>Call Facility</span>
                 </button>
-                <button className="flex-1 py-3 bg-white/10 rounded-xl text-white font-medium flex items-center justify-center space-x-2 hover:bg-white/20 transition-colors">
+                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <Share2 size={16} />
                   <span>Share</span>
                 </button>
-                <button className="flex-1 py-3 bg-white/10 rounded-xl text-white font-medium flex items-center justify-center space-x-2 hover:bg-white/20 transition-colors">
+                <button className="flex-1 py-3 bg-[#87BED7]/10 rounded-xl text-[#87BED7] font-medium flex items-center justify-center space-x-2 hover:bg-[#87BED7]/20 transition-colors">
                   <MapPin size={16} />
                   <span>Details</span>
                 </button>

@@ -58,7 +58,7 @@ export default function ChatInput({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
                 onClick={() => handleExampleClick(example)}
-                className="block w-full text-left px-4 py-3 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 text-white/90 hover:bg-white/20 transition-all duration-200 text-sm"
+                className="block w-full text-left px-4 py-3 bg-white/80 backdrop-blur-md rounded-2xl border border-[#87BED7]/30 text-gray-700 hover:bg-[#87BED7]/20 transition-all duration-200 text-sm"
               >
                 {example}
               </motion.button>
@@ -75,13 +75,13 @@ export default function ChatInput({
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-4">
+        <div className="relative bg-white/90 backdrop-blur-md rounded-2xl border border-[#87BED7]/30 p-4">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Where do you need to park?"
-            className="w-full bg-transparent text-white placeholder-white/60 text-lg outline-none pr-20"
+            className="w-full bg-transparent text-gray-700 placeholder-gray-500 text-lg outline-none pr-20"
             autoComplete="off"
           />
           
@@ -93,8 +93,8 @@ export default function ChatInput({
               onClick={isListening ? onStopListening : onStartListening}
               className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
                 isListening 
-                  ? 'bg-red-500 text-white shadow-lg shadow-red-500/50' 
-                  : 'bg-white/20 text-white hover:bg-white/30'
+                  ? 'bg-[#C93135] text-white shadow-lg shadow-[#C93135]/50' 
+                  : 'bg-[#87BED7]/20 text-[#87BED7] hover:bg-[#87BED7]/30'
               }`}
               whileTap={{ scale: 0.95 }}
               animate={isListening ? { scale: [1, 1.1, 1] } : {}}
@@ -111,7 +111,7 @@ export default function ChatInput({
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
-                  className="w-12 h-12 rounded-full bg-cyan-500 text-white flex items-center justify-center hover:bg-cyan-600 transition-colors duration-200 shadow-lg shadow-cyan-500/50"
+                  className="w-12 h-12 rounded-full bg-[#87BED7] text-white flex items-center justify-center hover:bg-[#87BED7]/80 transition-colors duration-200 shadow-lg shadow-[#87BED7]/50"
                   whileTap={{ scale: 0.95 }}
                 >
                   <Send size={20} />
