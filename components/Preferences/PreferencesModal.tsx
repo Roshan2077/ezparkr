@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Save, RotateCcw } from 'lucide-react';
+import { X, Save, RotateCcw, DollarSign, MapPin, Building, BarChart3, Shield, Accessibility, Settings } from 'lucide-react';
 
 export interface ParkingPreferences {
   // Cost preferences
@@ -97,13 +97,13 @@ export default function PreferencesModal({
   };
 
   const sections = [
-    { id: 'cost', label: 'Cost', icon: '💰' },
-    { id: 'distance', label: 'Distance', icon: '🚶' },
-    { id: 'coverage', label: 'Coverage', icon: '🏢' },
-    { id: 'availability', label: 'Availability', icon: '📊' },
-    { id: 'safety', label: 'Safety', icon: '🔒' },
-    { id: 'accessibility', label: 'Accessibility', icon: '♿' },
-    { id: 'advanced', label: 'Advanced', icon: '⚙️' },
+    { id: 'cost', label: 'Cost', icon: DollarSign },
+    { id: 'distance', label: 'Distance', icon: MapPin },
+    { id: 'coverage', label: 'Coverage', icon: Building },
+    { id: 'availability', label: 'Availability', icon: BarChart3 },
+    { id: 'safety', label: 'Safety', icon: Shield },
+    { id: 'accessibility', label: 'Accessibility', icon: Accessibility },
+    { id: 'advanced', label: 'Advanced', icon: Settings },
   ];
 
   const renderCostSection = () => (
@@ -128,14 +128,14 @@ export default function PreferencesModal({
       </div>
 
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferFree}
             onChange={(e) => updatePreference('preferFree', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prefer free parking when available</span>
+          <span className="text-sm text-gray-700 font-medium">Prefer free parking when available</span>
         </label>
       </div>
 
@@ -149,16 +149,16 @@ export default function PreferencesModal({
             { value: 'medium', label: 'Medium - Some flexibility' },
             { value: 'high', label: 'High - Cost is not a major factor' }
           ].map((option) => (
-            <label key={option.value} className="flex items-center space-x-3">
+            <label key={option.value} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
               <input
                 type="radio"
                 name="costTolerance"
                 value={option.value}
                 checked={localPreferences.costTolerance === option.value}
                 onChange={(e) => updatePreference('costTolerance', e.target.value)}
-                className="w-4 h-4 text-[#87BED7]"
+                className="w-4 h-4 text-[#87BED7] border-2 border-gray-300 focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
               />
-              <span className="text-sm text-gray-700">{option.label}</span>
+              <span className="text-sm text-gray-700 font-medium">{option.label}</span>
             </label>
           ))}
         </div>
@@ -188,14 +188,14 @@ export default function PreferencesModal({
       </div>
 
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferCloser}
             onChange={(e) => updatePreference('preferCloser', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prioritize closer parking options</span>
+          <span className="text-sm text-gray-700 font-medium">Prioritize closer parking options</span>
         </label>
       </div>
     </div>
@@ -204,24 +204,24 @@ export default function PreferencesModal({
   const renderCoverageSection = () => (
     <div className="space-y-6">
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferCovered}
             onChange={(e) => updatePreference('preferCovered', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prefer covered parking</span>
+          <span className="text-sm text-gray-700 font-medium">Prefer covered parking</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.requireCovered}
             onChange={(e) => updatePreference('requireCovered', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Require covered parking</span>
+          <span className="text-sm text-gray-700 font-medium">Require covered parking</span>
         </label>
       </div>
     </div>
@@ -249,14 +249,14 @@ export default function PreferencesModal({
       </div>
 
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.avoidFull}
             onChange={(e) => updatePreference('avoidFull', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Avoid parking that's likely to be full</span>
+          <span className="text-sm text-gray-700 font-medium">Avoid parking that's likely to be full</span>
         </label>
       </div>
 
@@ -284,24 +284,24 @@ export default function PreferencesModal({
   const renderSafetySection = () => (
     <div className="space-y-6">
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferWellLit}
             onChange={(e) => updatePreference('preferWellLit', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prefer well-lit parking areas</span>
+          <span className="text-sm text-gray-700 font-medium">Prefer well-lit parking areas</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferSecurity}
             onChange={(e) => updatePreference('preferSecurity', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prefer areas with security presence</span>
+          <span className="text-sm text-gray-700 font-medium">Prefer areas with security presence</span>
         </label>
       </div>
     </div>
@@ -310,24 +310,24 @@ export default function PreferencesModal({
   const renderAccessibilitySection = () => (
     <div className="space-y-6">
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.requireAccessible}
             onChange={(e) => updatePreference('requireAccessible', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Require accessible parking</span>
+          <span className="text-sm text-gray-700 font-medium">Require accessible parking</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.requireEVCharging}
             onChange={(e) => updatePreference('requireEVCharging', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Require EV charging stations</span>
+          <span className="text-sm text-gray-700 font-medium">Require EV charging stations</span>
         </label>
       </div>
     </div>
@@ -336,44 +336,44 @@ export default function PreferencesModal({
   const renderAdvancedSection = () => (
     <div className="space-y-6">
       <div className="space-y-3">
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.avoidEventTraffic}
             onChange={(e) => updatePreference('avoidEventTraffic', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Avoid areas with event traffic</span>
+          <span className="text-sm text-gray-700 font-medium">Avoid areas with event traffic</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.avoidConstruction}
             onChange={(e) => updatePreference('avoidConstruction', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Avoid construction zones</span>
+          <span className="text-sm text-gray-700 font-medium">Avoid construction zones</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.prioritizeScore}
             onChange={(e) => updatePreference('prioritizeScore', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prioritize high-scoring options</span>
+          <span className="text-sm text-gray-700 font-medium">Prioritize high-scoring options</span>
         </label>
 
-        <label className="flex items-center space-x-3">
+        <label className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
           <input
             type="checkbox"
             checked={localPreferences.preferQuickExit}
             onChange={(e) => updatePreference('preferQuickExit', e.target.checked)}
-            className="w-4 h-4 text-[#87BED7] bg-gray-100 border-gray-300 rounded focus:ring-[#87BED7]"
+            className="w-4 h-4 text-[#87BED7] bg-white border-2 border-gray-300 rounded focus:ring-2 focus:ring-[#87BED7]/20 focus:border-[#87BED7] transition-all"
           />
-          <span className="text-sm text-gray-700">Prefer parking with quick exit routes</span>
+          <span className="text-sm text-gray-700 font-medium">Prefer parking with quick exit routes</span>
         </label>
       </div>
     </div>
@@ -428,20 +428,23 @@ export default function PreferencesModal({
             {/* Sidebar */}
             <div className="w-64 bg-gray-50 border-r border-gray-200 p-4">
               <div className="space-y-2">
-                {sections.map((section) => (
-                  <button
-                    key={section.id}
-                    onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-colors ${
-                      activeSection === section.id
-                        ? 'bg-[#87BED7] text-white'
-                        : 'text-gray-700 hover:bg-gray-100'
-                    }`}
-                  >
-                    <span className="text-lg">{section.icon}</span>
-                    <span className="font-medium">{section.label}</span>
-                  </button>
-                ))}
+                {sections.map((section) => {
+                  const IconComponent = section.icon;
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => setActiveSection(section.id)}
+                      className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-left transition-all duration-200 ${
+                        activeSection === section.id
+                          ? 'bg-[#87BED7] text-white shadow-md'
+                          : 'text-gray-700 hover:bg-gray-100 hover:shadow-sm'
+                      }`}
+                    >
+                      <IconComponent size={18} />
+                      <span className="font-medium">{section.label}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
